@@ -1,0 +1,83 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+*.pot
+*.mo
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.next/
+.npm
+*.tsbuildinfo
+
+# ML Artifacts (keep .gitkeep)
+*.h5
+*.pkl
+*.joblib
+*.onnx
+*.pt
+*.pth
+!**/.gitkeep
+
+# Docker
+.docker/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets
+*.pem
+*.key
+.env
+secrets/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# pytest
+.pytest_cache/
+
+# MLflow
+mlruns/
+mlflow-artifacts/
+
+# Misc
+*.bak
+*.tmp

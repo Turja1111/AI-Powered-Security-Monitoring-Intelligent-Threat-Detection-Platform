@@ -1,0 +1,53 @@
+name: Platform Continuous Integration
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Pytest suite
+      run: |
+        cd backend
+        # Running simple unit tests with mock DB configurations
+        pytest --maxfail=2 --disable-warnings
+
+  test-ml-service:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        cd ml-service
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Test FastAPI microservice
+      run: |
+        cd ml-service
+        python -m pytest --disable-warnings

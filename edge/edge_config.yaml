@@ -1,0 +1,18 @@
+mqtt:
+  broker_host: localhost
+  broker_port: 1883
+  topic: edge/security/events
+  qos: 1
+
+model:
+  path: ./model-artifacts/xgboost_model.onnx
+  threshold: 0.6
+
+processing:
+  batch_size: 50
+  window_minutes: 5
+  anomaly_only_publish: true
+
+monitoring:
+  log_level: INFO
+  metrics_interval_seconds: 60

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: securewatch-ml-service
+  labels:
+    app: securewatch-ml-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: securewatch-ml-service
+  template:
+    metadata:
+      labels:
+        app: securewatch-ml-service
+    spec:
+      containers:
+      - name: ml-service
+        image: gcr.io/securewatch-platform/ml-service:latest
+        command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
+        ports:
+        - containerPort: 8001
+        envFrom:
+        - secretRef:
+            name: securewatch-secrets
+        - configMapRef:
+            name: securewatch-config
+        resources:
+          limits:
+            cpu: "2"
+            memory: 2Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8001
+          initialDelaySeconds: 20
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: securewatch-ml-service-svc
+spec:
+  selector:
+    app: securewatch-ml-service
+  ports:
+  - protocol: TCP
+    port: 8001
+    targetPort: 8001
+  type: ClusterIP

@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  backend:
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 4 --threads 4 --log-level warning
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+    restart: always
+
+  ml-service:
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --workers 4 --log-level warning
+    restart: always
+
+  frontend:
+    restart: always
+
+  db:
+    restart: always
+
+  cache:
+    restart: always
+
+  kafka:
+    restart: always

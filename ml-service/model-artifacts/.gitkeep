@@ -1,0 +1,7 @@
+# model-artifacts directory — tracked by git but contents are gitignored
+# Place trained model files here:
+#   isolation_forest.joblib
+#   xgboost_classifier.joblib
+#   xgboost_model.onnx
+#   lstm_detector.pt
+#   scaler.joblib
